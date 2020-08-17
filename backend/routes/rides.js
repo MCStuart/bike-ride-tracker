@@ -10,10 +10,10 @@ router.route('/').get((req, res) => {
 
 router.route('/add').post((req, res) => {
   const username = req.body.username,
-        description = req.body.description,
-        duration = req.body.duration,
-        distance = req.body.distance,
-        date = req.body.date;
+    description = req.body.description,
+    duration = req.body.duration,
+    distance = req.body.distance,
+    date = req.body.date;
 
   const newExercise = new Exercise({
     username,
@@ -41,14 +41,13 @@ router.route('/:id').delete((req, res) => {
 });
 
 router.route('/update/:id').post((req, res) => {
-  Ride.findByIdAndDelete(req.params.id)
+  Ride.findById(req.params.id)
     .then(ride => {
       ride.username = req.body.username;
       ride.description = req.body.description;
       ride.duration = Number(req.body.duration);
       ride.distance = Number(req.body.distance);
       ride.date = Date.parse(req.body.date);
-
       ride.save()
         .then(() => res.json('Ride updated!'))
         .catch(err => res.status(400).json('Error: ' + err));
